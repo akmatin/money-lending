@@ -1,9 +1,14 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
 
-export default function Title(props:any) {
+interface TitleProps {
+  children?: React.ReactNode;
+  color?:string;
+}
+
+export default function Title(props: TitleProps) {
   return (
-    <Typography component="h2" variant="h6" color="secondary" gutterBottom>
+    <Typography component="h1" variant="h5" color={props.color??"primary"} style={{display:"flex", justifyContent:"center"}} gutterBottom>
       {props.children}
     </Typography>
   );

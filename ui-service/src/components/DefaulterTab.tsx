@@ -15,9 +15,8 @@ function createData(
   shipTo: string,
   paymentMethod: string,
   amount: number,
-  comment: string,
 ) {
-  return { id, date, name, shipTo, paymentMethod, amount, comment };
+  return { id, date, name, shipTo, paymentMethod, amount };
 }
 
 const rows = [
@@ -28,7 +27,6 @@ const rows = [
     'Tupelo, MS',
     'VISA ⠀•••• 3719',
     312.44,
-    "Hello",
   ),
   createData(
     1,
@@ -37,9 +35,8 @@ const rows = [
     'London, UK',
     'VISA ⠀•••• 2574',
     866.99,
-    "",
   ),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81,""),
+  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
   createData(
     3,
     '16 Mar, 2019',
@@ -47,7 +44,6 @@ const rows = [
     'Gary, IN',
     'AMEX ⠀•••• 2000',
     654.39,
-    "",
   ),
   createData(
     4,
@@ -56,7 +52,6 @@ const rows = [
     'Long Branch, NJ',
     'VISA ⠀•••• 5919',
     212.79,
-    "",
   ),
 ];
 
@@ -64,19 +59,18 @@ function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
 }
 
-export default function Orders() {
+export default function DefaulterTab() {
   return (
     <React.Fragment>
-      <Title>All Transactions</Title>
-      <Table size="small">
+      <Title>Defaulter List</Title>
+      <Table size="small" >
         <TableHead>
           <TableRow>
-            <TableCell>TID</TableCell>
-            <TableCell>MID/RID</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Item</TableCell>
+            <TableCell>Due Date</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Contact</TableCell>
+            <TableCell>Relative Contact</TableCell>
             <TableCell align="right">Amount</TableCell>
-            <TableCell>Comment</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -87,7 +81,6 @@ export default function Orders() {
               <TableCell>{row.shipTo}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
               <TableCell align="right">{`$${row.amount}`}</TableCell>
-              <TableCell>{row.comment}</TableCell>
             </TableRow>
           ))}
         </TableBody>

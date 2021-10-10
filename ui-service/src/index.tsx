@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/styles';
+import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 import configureStore from './store/store';
+import CustomerDetails from './components/CustomerDetails';
+import Dashboard from './components/Dashboard';
 
 const store = configureStore();
 ReactDOM.render(
@@ -17,7 +19,10 @@ ReactDOM.render(
       <ThemeProvider theme={theme}>
           <CssBaseline />
           <Router>
-             <App />
+          <Switch>
+            <Route path='/'  component={Dashboard} exact/>
+            <Route path='/customer-details' component={CustomerDetails}/>
+        </Switch>
           </Router>
       </ThemeProvider>
     </Provider>
