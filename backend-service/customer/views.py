@@ -8,7 +8,8 @@ from .models import Customer
 @api_view(["GET"])
 def apiOverview(request):
     api_urls = {
-        'List': 'customer-list'
+        'List': 'customer-list',
+        'Create': 'customer-create'
     }
     return Response(api_urls)
 
@@ -16,4 +17,11 @@ def apiOverview(request):
 def customerList(request):
     customers = Customer.objects.all()
     serialzer = CustomerSerializer(customers, many=True)
-    return Response(serialzer.data);
+    return Response(serialzer.data)
+
+@api_view(["POST"])
+def customerCreate(request):
+    serializer = CustomerSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
