@@ -5,6 +5,12 @@ class SalesRecord(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
     cid = models.CharField(max_length=10)
     date = models.CharField(max_length=20)
-    # address = models.CharField(max_length=50)
-    # phoneNo = models.CharField(max_length=20)
-    # linkedAccounts = models.CharField(max_length=200)
+    inventoryId = models.CharField(max_length=20)
+    makingCharges = models.IntegerField 
+    gst = models.CharField(max_length=10)
+    discountAmount = models.IntegerField
+    subTotal = models.IntegerField()
+    paid = models.IntegerField()
+    isActive = models.BooleanField()
+    comments = models.CharField(max_length=100)
+    totalAmount = models.IntegerField()
