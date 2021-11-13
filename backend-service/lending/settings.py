@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import certifi
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#5o5gs(&3&5z2j0&4wve6653$b$2op5)8!ga447=9!mc-uj)r8'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOSTS')]
 
 
 # Application definition
@@ -37,6 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'customer',
+    'sales_record',
+    'inventory',
+    'transaction',
+    'mortgage_record'
 ]
 
 MIDDLEWARE = [
@@ -72,11 +82,27 @@ WSGI_APPLICATION = 'lending.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+'''
+ca = certifi.where()
+dbUsername = os.environ.get('DB_USERNAME')
+dbPassword = os.environ.get('DB_PASSWORD')
+dbClustername = os.environ.get('DB_CLUSTERNAME')
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'money-lending',
+        'CLIENT': {
+           'host': 'mongodb+srv://{}:{}@{}.erpzb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&tlsCAFile={}'.format(dbUsername, dbPassword, dbClustername, ca),
+           "name": 'money-landing',
+           "authMechanism": "SCRAM-SHA-1" #For atlas cloud db
+        }
     }
 }
 
